@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photo Stories</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+
+        /* top bar */
+        .topbar {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .topbar img {
+            width: 40px;
+            vertical-align: middle;
+        }
+        .topbar h1 {
+            display: inline-block;
+            margin: 0;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .menu {
+            float: right;
+            margin-top: 10px;
+        }
+        .menu a {
+            text-decoration: none;
+            color: black;
+            margin: 0 10px;
+        }
+        .menu a:hover {
+            color: red;
+        }
+
+        /* hero */
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background-color: #e8f0fe;
+        }
+        .hero div {
+            margin: 20px;
+        }
+        .hero img {
+            width: 350px;
+        }
+        .hero h2 {
+            font-size: 24px;
+            color: #003366;
+        }
+
+        /* info boxes */
+        .info {
+            display: flex;
+            justify-content: center;
+            margin: 30px;
+        }
+        .box {
+            background: white;
+            border: 1px solid #ccc;
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        /* footer */
+        .footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png" alt="logo">
+        <h1>Photo Stories</h1>
+        <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="showcase.html">Showcase</a>
+            <a href="about.html">About</a>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div class="hero">
+        <div>
+            <h2>Every Photo Has a Story 📸</h2>
+            <p>Welcome to Photo Stories! Here people share images and tell the stories behind them.</p>
+            <button onclick="location.href='showcase.html'">View Stories</button>
+        </div>
+        <div>
+            <img src="https://picsum.photos/400/300?random=1" alt="hero">
+        </div>
+    </div>
+
+    <div class="info">
+        <div class="box">
+            <h3>Share Photos</h3>
+            <p>Upload your photo and tell your story.</p>
+        </div>
+        <div class="box">
+            <h3>Read Stories</h3>
+            <p>Every picture has a memory behind it.</p>
+        </div>
+        <div class="box">
+            <h3>Connect</h3>
+            <p>See what others are sharing worldwide.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Photo Stories | Made by a Sh 😄</p>
+    </div>
+
+</body>
+</html>

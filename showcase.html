@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Showcase - Photo Stories</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* simple top bar */
+        .topbar {
+            background: white;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .topbar img {
+            width: 40px;
+            vertical-align: middle;
+        }
+        .topbar h1 {
+            display: inline-block;
+            margin: 0;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .menu {
+            float: right;
+            margin-top: 10px;
+        }
+        .menu a {
+            text-decoration: none;
+            color: black;
+            margin: 0 10px;
+        }
+        .menu a:hover {
+            color: red;
+        }
+
+        .photo-card {
+            background: white;
+            border: 1px solid #ccc;
+            width: 250px;
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        form {
+            margin-top: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            width: 300px;
+            padding: 15px;
+            display: inline-block;
+            border-radius: 5px;
+        }
+
+        input, textarea {
+            width: 90%;
+            margin: 5px 0;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png">
+        <h1>Photo Stories</h1>
+        <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="showcase.html">Showcase</a>
+            <a href="about.html">About</a>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <h2>📷 Photo Showcase</h2>
+    <p>Share your photo and the story behind it below:</p>
+
+    <!-- Upload Form -->
+    <form id="storyForm">
+        <input type="text" id="title" placeholder="Image Title"><br>
+        <input type="file" id="imageFile" accept="image/*"><br>
+        <textarea id="storyText" placeholder="Write your story..."></textarea><br>
+        <button type="submit">Add Story</button>
+    </form>
+
+    <h3>Saved Photos</h3>
+    <div id="gallery"></div>
+
+    <div class="footer">
+        <p>© 2025 Photo Stories</p>
+    </div>
+
+    <script>
+        // Load from localStorage or empty
+        var photos = JSON.parse(localStorage.getItem("photos") || "[]");
+
+        // Show photos on page
+        function showPhotos() {
+            var gallery = document.getElementById("gallery");
+            gallery.innerHTML = "";
+            for (var i = 0; i < photos.length; i++) {
+                var p = photos[i];
+                var card = document.createElement("div");
+                card.className = "photo-card";
+                card.innerHTML = `
+                    <h3>${p.title}</h3>
+                    <img src="${p.image}" alt="${p.title}">
+                    <p>${p.story}</p>
+                    <button onclick="deletePhoto(${i})">Delete</button>
+                `;
+                gallery.appendChild(card);
+            }
+        }
+
+        // Delete photo by index
+        function deletePhoto(index) {
+            if (confirm("Delete this story?")) {
+                photos.splice(index, 1);
+                localStorage.setItem("photos", JSON.stringify(photos));
+                showPhotos();
+            }
+        }
+
+        // Handle form submission
+        document.getElementById("storyForm").onsubmit = function(e) {
+            e.preventDefault();
+            var title = document.getElementById("title").value;
+            var story = document.getElementById("storyText").value;
+            var fileInput = document.getElementById("imageFile");
+
+            if (!title || !story || !fileInput.files[0]) {
+                alert("Please fill all fields and select an image.");
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var newPhoto = {
+                    title: title,
+                    image: event.target.result,
+                    story: story
+                };
+                photos.push(newPhoto);
+                localStorage.setItem("photos", JSON.stringify(photos));
+                showPhotos();
+                document.getElementById("storyForm").reset();
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        };
+
+        // Initial display
+        showPhotos();
+    </script>
+</body>
+</html>
