@@ -10,7 +10,6 @@
             text-align: center;
         }
 
-        /* simple top bar */
         .topbar {
             background: white;
             padding: 10px;
@@ -47,17 +46,28 @@
             padding: 10px;
             display: inline-block;
             vertical-align: top;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .photo-card img {
             width: 100%;
             height: auto;
+            border-radius: 5px;
         }
 
         button {
             padding: 5px 10px;
             margin-top: 5px;
             cursor: pointer;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background: #0056b3;
         }
 
         form {
@@ -117,10 +127,28 @@
     </div>
 
     <script>
-        // Load from localStorage or empty
-        var photos = JSON.parse(localStorage.getItem("photos") || "[]");
+        // default 10 aesthetic stories if none exist
+        var defaultPhotos = [
+            { title: "Golden Horizon", image: "https://picsum.photos/300/200?random=1", story: "A calm sunset over the ocean reminding me that endings can be beautiful too." },
+            { title: "Quiet Path", image: "https://picsum.photos/300/200?random=2", story: "A lonely trail in the forest, whispering secrets of forgotten times." },
+            { title: "Rainy Reflections", image: "https://picsum.photos/300/200?random=3", story: "Raindrops on the window made me realize peace can come in any form." },
+            { title: "City Dreams", image: "https://picsum.photos/300/200?random=4", story: "A snapshot of the city lights — where dreams and chaos meet." },
+            { title: "Serenity Lake", image: "https://picsum.photos/300/200?random=5", story: "The still water mirrored my thoughts; calm, deep, and endless." },
+            { title: "Vintage Road", image: "https://picsum.photos/300/200?random=6", story: "An old road I used to walk every day, filled with nostalgic echoes." },
+            { title: "Morning Dew", image: "https://picsum.photos/300/200?random=7", story: "Tiny drops of dew shining like little diamonds on the grass." },
+            { title: "Desert Glow", image: "https://picsum.photos/300/200?random=8", story: "The desert at dusk, silent but so alive with color and warmth." },
+            { title: "Coffee Moments", image: "https://picsum.photos/300/200?random=9", story: "A warm cup of coffee, the smell of rain, and a quiet morning to think." },
+            { title: "Starry Night Walk", image: "https://picsum.photos/300/200?random=10", story: "Walking under a sky full of stars — where silence speaks loudest." }
+        ];
 
-        // Show photos on page
+        // load existing from localStorage or use defaults
+        var photos = JSON.parse(localStorage.getItem("photos") || "[]");
+        if (photos.length === 0) {
+            photos = defaultPhotos;
+            localStorage.setItem("photos", JSON.stringify(photos));
+        }
+
+        // show photos
         function showPhotos() {
             var gallery = document.getElementById("gallery");
             gallery.innerHTML = "";
@@ -138,7 +166,7 @@
             }
         }
 
-        // Delete photo by index
+        // delete story
         function deletePhoto(index) {
             if (confirm("Delete this story?")) {
                 photos.splice(index, 1);
@@ -147,7 +175,7 @@
             }
         }
 
-        // Handle form submission
+        // add new story
         document.getElementById("storyForm").onsubmit = function(e) {
             e.preventDefault();
             var title = document.getElementById("title").value;
@@ -174,7 +202,7 @@
             reader.readAsDataURL(fileInput.files[0]);
         };
 
-        // Initial display
+        // display all
         showPhotos();
     </script>
 </body>
