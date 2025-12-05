@@ -1,127 +1,206 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Photo Stories</title>
-    <style>
-        body {
-            font-family: Arial;
-            margin: 0;
-            background-color: #f2f2f2;
-        }
-
-        /* top bar */
-        .topbar {
-            background-color: white;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        .topbar img {
-            width: 40px;
-            vertical-align: middle;
-        }
-        .topbar h1 {
-            display: inline-block;
-            margin: 0;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-        .menu {
-            float: right;
-            margin-top: 10px;
-        }
-        .menu a {
-            text-decoration: none;
-            color: black;
-            margin: 0 10px;
-        }
-        .menu a:hover {
-            color: red;
-        }
-
-        /* hero */
-        .hero {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            background-color: #e8f0fe;
-        }
-        .hero div {
-            margin: 20px;
-        }
-        .hero img {
-            width: 350px;
-        }
-        .hero h2 {
-            font-size: 24px;
-            color: #003366;
-        }
-
-        /* info boxes */
-        .info {
-            display: flex;
-            justify-content: center;
-            margin: 30px;
-        }
-        .box {
-            background: white;
-            border: 1px solid #ccc;
-            width: 200px;
-            padding: 10px;
-            margin: 10px;
-        }
-
-        /* footer */
-        .footer {
-            text-align: center;
-            background-color: #333;
-            color: white;
-            padding: 10px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Photo Stories - Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="topbar">
-        <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png" alt="logo">
-        <h1>Photo Stories</h1>
-        <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="showcase.html">Showcase</a>
-            <a href="about.html">About</a>
+  <header class="topbar">
+    <div class="logo-area">
+      <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png" alt="logo" class="logo">
+      <h1>Photo Stories</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="showcase.html">Showcase</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>Every Image Has a Story 📸</h2>
+        <p>Capture your memory. Share the moment. Read the stories behind beautiful photos uploaded by people like you.</p>
+        <div class="hero-buttons">
+          <button class="btn-primary" onclick="location.href='showcase.html'">View Stories</button>
+          <button class="btn-outline" onclick="document.getElementById('subscribe-email').scrollIntoView({behavior:'smooth'})">Subscribe</button>
         </div>
-        <div style="clear:both;"></div>
+
+        <!-- small quick search -->
+        <div style="margin-top:16px;">
+          <input id="searchInput" type="text" placeholder="Search stories by title..." style="padding:8px; width:70%; border:1px solid #ddd; border-radius:4px;">
+          <button onclick="searchStories()" style="padding:8px 10px; margin-left:8px; background:#0b74b1; color:white; border:none; border-radius:4px; cursor:pointer;">Search</button>
+        </div>
+
+        <p id="searchHint" style="color:#666; font-size:13px; margin-top:8px;">Try searching titles like "Sunset" or "Coffee".</p>
+      </div>
+
+      <div class="hero-image">
+        <img src="https://picsum.photos/520/360?random=21" alt="hero image">
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="info">
+      <div class="box">
+        <h3>Simple Upload</h3>
+        <p>Select an image, write a short story, and save — no accounts required.</p>
+      </div>
+      <div class="box">
+        <h3>Local Storage</h3>
+        <p>All your stories are saved in your browser. They stay even after refresh.</p>
+      </div>
+      <div class="box">
+        <h3>Delete Anytime</h3>
+        <p>Remove any story you no longer want with a single click.</p>
+      </div>
+    </section>
+
+    <!-- FEATURED STORIES PREVIEW -->
+    <section style="max-width:1000px; margin:22px auto; padding:0 16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h2 style="font-size:20px; color:#0b3b50; margin:0;">Featured Stories</h2>
+        <button onclick="location.href='showcase.html'" style="background:transparent; border:1px solid #0b74b1; color:#0b74b1; padding:6px 10px; border-radius:6px; cursor:pointer;">See all</button>
+      </div>
+
+      <div id="featured" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;"></div>
+
+      <p id="noFeatured" style="text-align:center; color:#666; margin-top:12px; display:none;">No stories available yet — add one on the Showcase page!</p>
+    </section>
+
+    <!-- QUICK SUBSCRIBE & CONTACT -->
+    <section style="max-width:900px; margin: 10px auto; padding: 18px; background:#fff; border:1px solid #eee; border-radius:8px;">
+      <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:center;">
+        <div style="flex:1; min-width:220px;">
+          <h3 style="margin:0 0 8px 0; color:#0b3b50;">Stay Updated</h3>
+          <p style="margin:0 0 10px 0; color:#444;">Subscribe to get simple updates about the project (local-only, saved in your browser).</p>
+
+          <div>
+            <input id="subscribe-email" type="email" placeholder="Enter your email" style="padding:8px; width:70%; border:1px solid #ddd; border-radius:4px;">
+            <button onclick="subscribe()" style="padding:8px 12px; margin-left:8px; background:#0b74b1; color:#fff; border:none; border-radius:4px; cursor:pointer;">Subscribe</button>
+          </div>
+          <p id="subscribeMsg" style="color:green; margin-top:8px; display:none;"></p>
+        </div>
+
+        <div style="flex:1; min-width:220px;">
+          <h3 style="margin:0 0 8px 0; color:#0b3b50;">Quick Info</h3>
+          <ul style="color:#444; line-height:1.6; margin-left:18px;">
+            <li>Built with HTML, CSS, JavaScript</li>
+            <li>Data stored locally (localStorage)</li>
+            <li>Works offline on the same browser</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER NOTE (optional small credit) -->
+    <div style="max-width:900px; margin:16px auto; text-align:center; color:#666; font-size:13px;">
+      <p style="margin:8px 0 0 0;">Made by: Shreyansh Yadav, Satyam Maurya, Sajal Yadav</p>
     </div>
 
-    <div class="hero">
-        <div>
-            <h2>Every Photo Has a Story 📸</h2>
-            <p>Welcome to Photo Stories! Here people share images and tell the stories behind them.</p>
-            <button onclick="location.href='showcase.html'">View Stories</button>
-        </div>
-        <div>
-            <img src="https://picsum.photos/400/300?random=1" alt="hero">
-        </div>
-    </div>
+  </main>
 
-    <div class="info">
-        <div class="box">
-            <h3>Share Photos</h3>
-            <p>Upload your photo and tell your story.</p>
-        </div>
-        <div class="box">
-            <h3>Read Stories</h3>
-            <p>Every picture has a memory behind it.</p>
-        </div>
-        <div class="box">
-            <h3>Connect</h3>
-            <p>See what others are sharing worldwide.</p>
-        </div>
-    </div>
+  <footer>
+    © 2025 Photo Stories
+  </footer>
 
-    <div class="footer">
-        <p>© 2025 Photo Stories | Made by a Sh 😄</p>
-    </div>
+  <script>
+    // get photos from localStorage or fallback to defaults (same defaults used in showcase)
+    function getPhotos() {
+      var stored = JSON.parse(localStorage.getItem('photos') || "[]");
+      if (stored.length === 0) {
+        return [
+          { title: "Golden Horizon", image: "https://picsum.photos/300/200?random=1", story: "A calm sunset over the ocean reminding me that endings can be beautiful too." },
+          { title: "Quiet Path", image: "https://picsum.photos/300/200?random=2", story: "A lonely trail in the forest, whispering secrets of forgotten times." },
+          { title: "Rainy Reflections", image: "https://picsum.photos/300/200?random=3", story: "Raindrops on the window made me realize peace can come in any form." },
+          { title: "City Dreams", image: "https://picsum.photos/300/200?random=4", story: "A snapshot of the city lights — where dreams and chaos meet." },
+          { title: "Serenity Lake", image: "https://picsum.photos/300/200?random=5", story: "The still water mirrored my thoughts; calm, deep, and endless." }
+        ];
+      }
+      return stored;
+    }
 
+    function showFeatured() {
+      var featuredEl = document.getElementById('featured');
+      var noEl = document.getElementById('noFeatured');
+      var photos = getPhotos();
+      featuredEl.innerHTML = '';
+      if (photos.length === 0) {
+        noEl.style.display = 'block';
+        return;
+      } else {
+        noEl.style.display = 'none';
+      }
+      // show up to 3 featured items
+      for (var i = 0; i < Math.min(3, photos.length); i++) {
+        var p = photos[i];
+        var card = document.createElement('div');
+        card.style.width = '300px';
+        card.style.background = '#fff';
+        card.style.border = '1px solid #e9e9e9';
+        card.style.borderRadius = '8px';
+        card.style.padding = '10px';
+        card.style.boxShadow = '0 6px 14px rgba(0,0,0,0.04)';
+        card.innerHTML = '<h3 style="margin:0 0 8px 0; color:#0b3b50;">' + escapeHtml(p.title) + '</h3>'
+                       + '<img src="' + p.image + '" alt="' + escapeHtml(p.title) + '" style="width:100%; border-radius:6px; margin-bottom:8px;">'
+                       + '<p style="font-size:14px; color:#333; line-height:1.4;">' + escapeHtml(shorten(p.story, 120)) + '</p>';
+        featuredEl.appendChild(card);
+      }
+    }
+
+    function shorten(s, n) {
+      if (!s) return '';
+      return s.length > n ? s.slice(0,n-1) + "…" : s;
+    }
+
+    function escapeHtml(s) {
+      if (!s) return '';
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function subscribe() {
+      var email = document.getElementById('subscribe-email').value.trim();
+      var msg = document.getElementById('subscribeMsg');
+      if (!email || email.indexOf('@') === -1) {
+        msg.style.color = 'red';
+        msg.style.display = 'block';
+        msg.textContent = 'Please enter a valid email address';
+        return;
+      }
+      var list = JSON.parse(localStorage.getItem('subscribers') || "[]");
+      list.push({ email: email, date: new Date().toISOString() });
+      localStorage.setItem('subscribers', JSON.stringify(list));
+      msg.style.color = 'green';
+      msg.style.display = 'block';
+      msg.textContent = 'Subscribed! (saved in your browser)';
+      document.getElementById('subscribe-email').value = '';
+      setTimeout(function(){ msg.style.display = 'none'; }, 3000);
+    }
+
+    function searchStories() {
+      var q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (!q) {
+        alert('Please type a search query');
+        return;
+      }
+      var photos = getPhotos();
+      var found = photos.filter(function(p){ return (p.title||'').toLowerCase().indexOf(q) !== -1; });
+      if (found.length === 0) {
+        alert('No stories found with that title.');
+        return;
+      }
+      // open showcase page and highlight (basic) — save query to sessionStorage so showcase can read it
+      sessionStorage.setItem('searchQuery', q);
+      location.href = 'showcase.html';
+    }
+
+    // run on load
+    showFeatured();
+  </script>
 </body>
 </html>
