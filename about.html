@@ -1,41 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>About - Photo Stories</title>
-    <style>
-        body {font-family: Arial; margin: 0; background: #f2f2f2;}
-        .topbar {background: white; padding: 10px; border-bottom: 1px solid #ccc;}
-        .topbar img {width: 40px; vertical-align: middle;}
-        .topbar h1 {display:inline-block; margin-left:10px; vertical-align: middle;}
-        .menu {float:right; margin-top:10px;}
-        .menu a {text-decoration:none; color:black; margin:0 10px;}
-        .menu a:hover {color:red;}
-        .footer {background:#333; color:white; text-align:center; padding:10px;}
-        .content {text-align:center; padding:30px;}
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About - Photo Stories</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="topbar">
+    <div class="logo-area">
+      <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png" alt="logo" class="logo">
+      <h1>Photo Stories</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="showcase.html">Showcase</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-    <div class="topbar">
-        <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png">
-        <h1>Photo Stories</h1>
-        <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="showcase.html">Showcase</a>
-            <a href="about.html">About</a>
+  <main>
+    <section class="about-section">
+      <h2>About This Project</h2>
+      <p>
+        <strong>Photo Stories – Every Image Has a Story</strong> is a simple and beginner-friendly web application created
+        as a Mini Project for the 3rd Semester of B.Tech Computer Science & Engineering.
+        This project allows users to upload photos, write short stories, and save them
+        locally using the browser's <code>localStorage</code>. It demonstrates basic skills in HTML, CSS, and JavaScript.
+      </p>
+
+      <h2>About Us</h2>
+      <p>
+        We are a team of CSE students who worked together to build this project. Our aim was to practice core web development
+        skills and create something useful and easy to use.
+      </p>
+
+      <h3>Our Team Members</h3>
+
+      <div class="team">
+        <div class="member">
+          <div class="member-left">
+            <h4>Shreyansh Yadav</h4>
+            <p class="small">B.Tech CSE - B</p>
+            <p class="small">Enrollment No.: <strong>2406410100099</strong></p>
+          </div>
+          <div class="member-right">
+            <p><strong>Role:</strong> Frontend Developer, UI Designing, Documentation</p>
+          </div>
         </div>
-        <div style="clear:both;"></div>
-    </div>
 
-    <div class="content">
-        <h2>About This Website</h2>
-        <p>This website was made by a students of Ashoka institute of techonology .</p>
-        <p>It allows people to share their favorite photos and the stories behind them.</p>
-    </div>
+        <div class="member">
+          <div class="member-left">
+            <h4>Satyam Maurya</h4>
+            <p class="small">B.Tech CSE - B</p>
+            <p class="small">Enrollment No.: <strong>2406410100087</strong></p>
+          </div>
+          <div class="member-right">
+            <p><strong>Role:</strong> JavaScript Functionality, Data Handling, Debugging</p>
+          </div>
+        </div>
 
-    <div class="footer">
-        <p>© 2025 Photo Stories</p>
-    </div>
+        <div class="member">
+          <div class="member-left">
+            <h4>Sajal Yadav</h4>
+            <p class="small">B.Tech CSE - B</p>
+            <p class="small">Enrollment No.: <strong>2406410100081</strong></p>
+          </div>
+          <div class="member-right">
+            <p><strong>Role:</strong> Content Creation, Testing, Presentation & Report Preparation</p>
+          </div>
+        </div>
+      </div>
 
+      <h3>Project Purpose</h3>
+      <p>
+        The main purpose of this project is to learn and practise front-end development by building an interactive web app.
+        It helped us learn image handling, DOM manipulation, localStorage usage and collaborative development.
+      </p>
+
+      <h3>Special Thanks</h3>
+      <p>
+        We thank our faculty and mentors for their guidance throughout the project.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Photo Stories
+  </footer>
 </body>
 </html>
