@@ -1,209 +1,282 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Showcase - Photo Stories</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f2f2f2;
-            margin: 0;
-            text-align: center;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Showcase - Photo Stories</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Page-specific button + small UI enhancements */
+    .showcase-body { background: #f0f8ff; } /* subtle page background */
 
-        .topbar {
-            background: white;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        .topbar img {
-            width: 40px;
-            vertical-align: middle;
-        }
-        .topbar h1 {
-            display: inline-block;
-            margin: 0;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-        .menu {
-            float: right;
-            margin-top: 10px;
-        }
-        .menu a {
-            text-decoration: none;
-            color: black;
-            margin: 0 10px;
-        }
-        .menu a:hover {
-            color: red;
-        }
+    /* make the form area centered and nicer */
+    .showcase-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px;
+      text-align: center;
+    }
 
-        .photo-card {
-            background: white;
-            border: 1px solid #ccc;
-            width: 250px;
-            margin: 10px;
-            padding: 10px;
-            display: inline-block;
-            vertical-align: top;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+    .form-card {
+      width: 420px;
+      margin: 8px auto 20px auto;
+      box-shadow: 0 10px 30px rgba(11,116,177,0.08);
+    }
 
-        .photo-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
+    /* Pretty primary button (gradient) */
+    .btn-primary {
+      background: linear-gradient(90deg,#0b74b1,#0f9bd6);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      box-shadow: 0 8px 18px rgba(11,116,177,0.12);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(11,116,177,0.16); }
 
-        button {
-            padding: 5px 10px;
-            margin-top: 5px;
-            cursor: pointer;
-            border: none;
-            background: #007bff;
-            color: white;
-            border-radius: 3px;
-        }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(11,116,177,0.18);
+      color: #0b74b1;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .12s ease, transform .12s ease;
+    }
+    .btn-outline:hover { background: rgba(11,116,177,0.06); transform: translateY(-2px); }
 
-        button:hover {
-            background: #0056b3;
-        }
+    /* small preview box */
+    #preview {
+      display: block;
+      margin: 10px auto 6px auto;
+      width: 100%;
+      max-width: 360px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+    }
 
-        form {
-            margin-top: 20px;
-            background: white;
-            border: 1px solid #ccc;
-            width: 300px;
-            padding: 15px;
-            display: inline-block;
-            border-radius: 5px;
-        }
+    /* tweak gallery spacing */
+    .gallery { gap: 16px; margin-top: 18px; }
 
-        input, textarea {
-            width: 90%;
-            margin: 5px 0;
-        }
+    /* nicer card title center */
+    .photo-card h3 { text-align: center; font-size: 18px; }
 
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
-        }
-    </style>
+    /* small action row */
+    .card-actions { display:flex; gap:8px; justify-content: center; margin-top:8px; }
+    .btn-small {
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-like {
+      background: linear-gradient(90deg,#ff7a7a,#ffb199);
+      color: #fff;
+      box-shadow: 0 6px 14px rgba(255,122,122,0.12);
+    }
+    .btn-del {
+      background: linear-gradient(90deg,#e76b6b,#d93b3b);
+      color: #fff;
+      box-shadow: 0 6px 14px rgba(231,107,107,0.12);
+    }
+
+    /* responsive */
+    @media (max-width: 560px) {
+      .form-card { width: 92%; }
+      .photo-card { width: 100%; }
+      .hero-image img { width: 100%; }
+    }
+  </style>
 </head>
-<body>
+<body class="showcase-body">
 
-    <!-- Top Bar -->
-    <div class="topbar">
-        <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png">
-        <h1>Photo Stories</h1>
-        <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="showcase.html">Showcase</a>
-            <a href="about.html">About</a>
-        </div>
-        <div style="clear:both;"></div>
+  <header class="topbar">
+    <div class="logo-area">
+      <img src="https://cdn-icons-png.flaticon.com/512/685/685655.png" alt="logo" class="logo">
+      <h1>Photo Stories</h1>
     </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="showcase.html">Showcase</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-    <h2>📷 Photo Showcase</h2>
-    <p>Share your photo and the story behind it below:</p>
+  <main class="showcase-container">
 
-    <!-- Upload Form -->
-    <form id="storyForm">
-        <input type="text" id="title" placeholder="Image Title"><br>
-        <input type="file" id="imageFile" accept="image/*"><br>
-        <textarea id="storyText" placeholder="Write your story..."></textarea><br>
-        <button type="submit">Add Story</button>
+    <h2 style="margin-bottom:6px; color:#0b3b50;">📷 Photo Showcase</h2>
+    <p style="color:#333; margin-bottom:10px;">Share your photo and the story behind it below:</p>
+
+    <form id="storyForm" class="form-card" enctype="multipart/form-data">
+      <input type="text" id="title" placeholder="Image Title" aria-label="Image Title" />
+      <input type="file" id="imageFile" accept="image/*" />
+      <img id="preview" src="" alt="" style="display:none;">
+      <textarea id="storyText" placeholder="Write your story..." aria-label="Story text"></textarea>
+
+      <div style="display:flex; gap:10px; justify-content:center; margin-top:8px;">
+        <button type="submit" class="btn-primary">Add Story</button>
+        <button type="button" class="btn-outline" id="clearFormBtn">Clear</button>
+      </div>
     </form>
 
-    <h3>Saved Photos</h3>
-    <div id="gallery"></div>
+    <h3 style="margin-top:12px; color:#0b3b50;">Saved Photos</h3>
+    <div id="gallery" class="gallery"></div>
 
-    <div class="footer">
-        <p>© 2025 Photo Stories</p>
-    </div>
+  </main>
 
-    <script>
-        // default 10 aesthetic stories if none exist
-        var defaultPhotos = [
-            { title: "Golden Horizon", image: "https://picsum.photos/300/200?random=1", story: "A calm sunset over the ocean reminding me that endings can be beautiful too." },
-            { title: "Quiet Path", image: "https://picsum.photos/300/200?random=2", story: "A lonely trail in the forest, whispering secrets of forgotten times." },
-            { title: "Rainy Reflections", image: "https://picsum.photos/300/200?random=3", story: "Raindrops on the window made me realize peace can come in any form." },
-            { title: "City Dreams", image: "https://picsum.photos/300/200?random=4", story: "A snapshot of the city lights — where dreams and chaos meet." },
-            { title: "Serenity Lake", image: "https://picsum.photos/300/200?random=5", story: "The still water mirrored my thoughts; calm, deep, and endless." },
-            { title: "Vintage Road", image: "https://picsum.photos/300/200?random=6", story: "An old road I used to walk every day, filled with nostalgic echoes." },
-            { title: "Morning Dew", image: "https://picsum.photos/300/200?random=7", story: "Tiny drops of dew shining like little diamonds on the grass." },
-            { title: "Desert Glow", image: "https://picsum.photos/300/200?random=8", story: "The desert at dusk, silent but so alive with color and warmth." },
-            { title: "Coffee Moments", image: "https://picsum.photos/300/200?random=9", story: "A warm cup of coffee, the smell of rain, and a quiet morning to think." },
-            { title: "Starry Night Walk", image: "https://picsum.photos/300/200?random=10", story: "Walking under a sky full of stars — where silence speaks loudest." }
-        ];
+  <footer>
+    © 2025 Photo Stories
+  </footer>
 
-        // load existing from localStorage or use defaults
-        var photos = JSON.parse(localStorage.getItem("photos") || "[]");
-        if (photos.length === 0) {
-            photos = defaultPhotos;
-            localStorage.setItem("photos", JSON.stringify(photos));
+  <script>
+    // Self-contained JS for showcase page with nicer buttons + preview
+    (function(){
+      // default sample stories
+const defaultPhotos = [
+  { title: "Golden Horizon", image: "https://picsum.photos/400/300?random=201", story: "A peaceful sunset reminding me that every ending carries a soft beginning." },
+  { title: "Quiet Forest Path", image: "https://picsum.photos/400/300?random=202", story: "A lonely pathway in the woods whispering untold stories of nature." },
+  { title: "City Lights", image: "https://picsum.photos/400/300?random=203", story: "A view of the bustling city at night — glowing, alive, dreaming." },
+  { title: "Serenity Lake", image: "https://picsum.photos/400/300?random=204", story: "Still waters reflecting a calmness I had been chasing for months." },
+  { title: "Old Memories", image: "https://picsum.photos/400/300?random=205", story: "This old window reminded me of childhood afternoons spent daydreaming." },
+  { title: "Warm Glow", image: "https://picsum.photos/400/300?random=206", story: "A candle lit in silence, carrying hope in its soft flicker." },
+  { title: "Sunflower Dreams", image: "https://picsum.photos/400/300?random=207", story: "Fields of sunlight that feel like happiness stretching into the horizon." },
+  { title: "Vintage Bicycle", image: "https://picsum.photos/400/300?random=208", story: "A bicycle once used daily now rests peacefully with its memories." },
+  { title: "Soft Morning Coffee", image: "https://picsum.photos/400/300?random=209", story: "The first cup of coffee, with warmth that gently wakes the soul." },
+  { title: "Calm Ocean Breeze", image: "https://picsum.photos/400/300?random=210", story: "Standing by the ocean, realizing how small worries really are." }
+];
+
+// Load photos from localStorage. If none or empty, write defaults (but only if user hasn't intentionally set empty array)
+let photosRaw = localStorage.getItem('photos');
+let photos;
+try {
+  photos = photosRaw ? JSON.parse(photosRaw) : null;
+} catch (e) {
+  console.warn('Invalid photos in localStorage — resetting to defaults.');
+  photos = null;
+}
+
+// If not found or not an array or empty, initialize defaults
+if (!Array.isArray(photos) || photos.length === 0) {
+  photos = defaultPhotos.slice(); // copy
+  localStorage.setItem('photos', JSON.stringify(photos));
+}
+
+      const gallery = document.getElementById('gallery');
+      const form = document.getElementById('storyForm');
+      const titleInput = document.getElementById('title');
+      const fileInput = document.getElementById('imageFile');
+      const storyInput = document.getElementById('storyText');
+      const previewImg = document.getElementById('preview');
+      const clearBtn = document.getElementById('clearFormBtn');
+
+      function escapeHtml(s='') {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      function renderGallery(filterQ = '') {
+        gallery.innerHTML = '';
+        const list = photos.slice().reverse(); // newest first
+        const filtered = filterQ ? list.filter(p => (p.title||'').toLowerCase().includes(filterQ)) : list;
+        if (filtered.length === 0) {
+          gallery.innerHTML = '<p style="color:#666; text-align:center; width:100%;">No stories yet. Add one using the form above.</p>';
+          return;
         }
+        filtered.forEach((p, idx) => {
+          // use an index relative to photos array for deletion
+          const globalIndex = photos.length - 1 - idx; // because we reversed
+          const card = document.createElement('div');
+          card.className = 'photo-card';
+          card.innerHTML = `
+            <h3>${escapeHtml(p.title || 'Untitled')}</h3>
+            <img src="${p.image}" alt="${escapeHtml(p.title || '')}">
+            <p>${escapeHtml(p.story || '')}</p>
+            <div class="card-actions">
+              <button class="btn-small btn-like" title="Like">❤ Like</button>
+              <button class="btn-small btn-del" title="Delete" data-index="${globalIndex}">Delete</button>
+            </div>
+          `;
+          gallery.appendChild(card);
+        });
+      }
 
-        // show photos
-        function showPhotos() {
-            var gallery = document.getElementById("gallery");
-            gallery.innerHTML = "";
-            for (var i = 0; i < photos.length; i++) {
-                var p = photos[i];
-                var card = document.createElement("div");
-                card.className = "photo-card";
-                card.innerHTML = `
-                    <h3>${p.title}</h3>
-                    <img src="${p.image}" alt="${p.title}">
-                    <p>${p.story}</p>
-                    <button onclick="deletePhoto(${i})">Delete</button>
-                `;
-                gallery.appendChild(card);
-            }
+      // initial render
+      renderGallery();
+
+      // handle delete using event delegation
+      gallery.addEventListener('click', function(e){
+        const del = e.target.closest('button[data-index]');
+        if (del) {
+          const i = Number(del.getAttribute('data-index'));
+          if (!Number.isNaN(i) && confirm('Delete this story?')) {
+            photos.splice(i, 1);
+            localStorage.setItem('photos', JSON.stringify(photos));
+            renderGallery();
+          }
         }
+      });
 
-        // delete story
-        function deletePhoto(index) {
-            if (confirm("Delete this story?")) {
-                photos.splice(index, 1);
-                localStorage.setItem("photos", JSON.stringify(photos));
-                showPhotos();
-            }
+      // preview image when chosen
+      fileInput.addEventListener('change', function(){
+        const f = fileInput.files && fileInput.files[0];
+        if (!f) { previewImg.style.display = 'none'; previewImg.src = ''; return; }
+        const reader = new FileReader();
+        reader.onload = function(ev){ previewImg.src = ev.target.result; previewImg.style.display = 'block'; };
+        reader.readAsDataURL(f);
+      });
+
+      // clear form
+      clearBtn.addEventListener('click', function(){
+        form.reset();
+        previewImg.style.display = 'none';
+        previewImg.src = '';
+      });
+
+      // submit form
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        const title = titleInput.value.trim();
+        const story = storyInput.value.trim();
+        const file = fileInput.files && fileInput.files[0];
+        if (!title || !story || !file) {
+          alert('Please fill title, choose an image, and write a story.');
+          return;
         }
-
-        // add new story
-        document.getElementById("storyForm").onsubmit = function(e) {
-            e.preventDefault();
-            var title = document.getElementById("title").value;
-            var story = document.getElementById("storyText").value;
-            var fileInput = document.getElementById("imageFile");
-
-            if (!title || !story || !fileInput.files[0]) {
-                alert("Please fill all fields and select an image.");
-                return;
-            }
-
-            var reader = new FileReader();
-            reader.onload = function(event) {
-                var newPhoto = {
-                    title: title,
-                    image: event.target.result,
-                    story: story
-                };
-                photos.push(newPhoto);
-                localStorage.setItem("photos", JSON.stringify(photos));
-                showPhotos();
-                document.getElementById("storyForm").reset();
-            };
-            reader.readAsDataURL(fileInput.files[0]);
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          photos.push({ title: title, image: e.target.result, story: story });
+          localStorage.setItem('photos', JSON.stringify(photos));
+          form.reset();
+          previewImg.style.display = 'none';
+          previewImg.src = '';
+          renderGallery();
+          // scroll to gallery
+          setTimeout(()=> { gallery.scrollIntoView({ behavior: 'smooth' }); }, 200);
         };
+        reader.readAsDataURL(file);
+      });
 
-        // display all
-        showPhotos();
-    </script>
+      // handle optional search query passed via sessionStorage (from index)
+      const q = sessionStorage.getItem('searchQuery') || '';
+      if (q) {
+        sessionStorage.removeItem('searchQuery');
+        // render only matching
+        renderGallery(q.toLowerCase());
+        // show a small notice
+        const note = document.createElement('div');
+        note.style.textAlign = 'center';
+        note.style.color = '#0b3b50';
+        note.style.marginTop = '8px';
+        note.textContent = `Showing results for "${q}"`;
+        document.querySelector('.showcase-container').insertBefore(note, gallery);
+      }
+
+    })();
+  </script>
+
 </body>
 </html>
